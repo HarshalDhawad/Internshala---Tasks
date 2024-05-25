@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Summary</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid rgb(81, 0, 255);
+        }
+        th, td {
+            padding: 3px;
+            text-align: center;
+        }
+        h3{
+            color: blueviolet;
+        }
+         img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- //task1 -->
+    <h1>Task-1</h1>
+    <h3>Cluster Analysis Results</h1>
+    <h3>Testing Data with Predicted Clusters</h2>
+    <div>{{ testing_data|safe }}</div>
+
+    <h2>Silhouette Score</h2>
+    <p>{{ silhouette }}</p>
+
+    <h2>Predicted Cluster for New Data Point</h2>
+    <p>New Data Point belongs to Cluster: {{ predicted_cluster }}</p>
+
+    <h2>Cluster Plot</h2>
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Cluster Plot">
+   
+    <br>
+    <!-- task2 -->
+    <h1>Task-2</h1>
+    <h1>Predicted on Test - Dataset </h1>
+    {{ top_10_rows|safe }}
+
+    <h2>Accuracy Score of Train</h2>
+    <p>{{ accuracy }}</p>
+
+    <br>
+    <!-- task3 -->
+    <h1 style="color:rgb(0, 0, 0)">TASK-3</h1>
+    <h3>Date-wise Total Duration for Each Location Type</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Inside Duration</th>
+            <!-- <th>Outside Duration</th> -->
+        </tr>
+        {% for index, row in duration_summary.iterrows() %}
+        <tr>
+            <td>{{ row['date'] }}</td>
+            <td>{{ row['inside'] }}</td>
+            <!-- <td>{{ row['outside'] }}</td> -->
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Date-wise Number of Picking and Placing Activities</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Picked</th>
+            <th>Placed</th>
+        </tr>
+        {% for index, row in activity_summary.iterrows() %}
+        <tr>
+            <td>{{ row['date'] }}</td>
+            <td>{{ row['picked'] }}</td>
+            <td>{{ row['placed'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Final Summary</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Inside Duration</th>
+            <!-- <th>Outside Duration</th> -->
+            <th>Picked</th>
+            <th>Placed</th>
+        </tr>
+        {% for index, row in final_summary.iterrows() %}
+        <tr>
+            <td>{{ row['date'] }}</td>
+            <td>{{ row['inside'] }}</td>
+            <!-- <td>{{ row['outside'] }}</td> -->
+            <td>{{ row['picked'] }}</td>
+            <td>{{ row['placed'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
